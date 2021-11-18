@@ -14,32 +14,25 @@ for idx, i in enumerate(sys.stdin):
     # To check that no one leaves the train on the first station
     if idx == 0:
         if int(i[0]) != 0:
-            possible = False
-            
+            print("impossible")
+
+    #adding people entering the train and leaving the train
+    people += (int(i[1]) - int(i[0]))
     
-    # The train is empty at the beginning and destination
-    people += int(i[1]) - int(i[0]) # Adding people entered and subtracting people left
+    # Number of people in the train cannot exceed capacity
+    if people > capacity:
+        print("impossible")
 
-    # to ensure number of people entering does not exceed capacity
-    if people > int(capacity) or people < 0 or int(i[0]) > people:
-        possible = False
-        
-
-    # if people < int(capacity):
-    #     if int(i[2]) != 0 and int(i[1]) == 0:
-    #         possible = False
-            
+    
+    
 
     # We check for iteration qual to number of stops and also check the number of waiting people are zero.
     if idx == (int(stops)-1) :
-        # total number of people in train should also need to be zero
-        if (int(i[2]) > 0 and people > 0) or int(i[1]) > 0 :
-            possible = False
-        
+        # total number of people in train should also need to be zero and no one enters the train at the last stop
+        if int(i[1]) > 0 or int(i[2]) > 0 or people > 0:
+            print("impossible")
+
+        else:
+            print("possible")
+
         break
-
-if possible == True:
-    print('possible')
-
-else:
-    print('Impossible')
